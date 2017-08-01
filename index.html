@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>zarty.party</title>
+<head>
+	<center>
+		<font face = "Verdana">
+		<h1>zarty.party - What's going on at Tech</h1>
+	</center>
+</head>
+<center>
+<style>
+       #map {
+        height: 600px;
+        width: 60%;
+       }
+    </style>
+<body>
+    <div class="container">
+    <div id="map"></div>
+        <script>
+          function initMap() {
+           var gatech = {lat: 33.7756, lng: -84.3963};
+           var fitten = {lat:33.778298, lng: -84.403622}
+           var event_locations = [fitten]
+           var map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 15,
+             center: gatech
+           });
+           var fitteninfowin = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<id="firstHeading" class="firstHeading"><font size="+2"><b>Fitten Residence Hall</font></b>'+
+              '<div id="bodyContent">'+
+              '<br/><b><font size = "-1">uh: </b>Text here.</font>'+
+              '</div>'+
+              '</div>';
+              var loc_info = [fitteninfowin];
+           
+            for (var i = 0; i < event_locations.length; i++) {
+              var marker = new google.maps.Marker({
+                position: event_locations[i],
+                map: map,
+                index: i
+              });
+              marker.setMap(map);
+              if (loc_info.length == event_locations.length) {
+                marker.addListener('click', function() {
+                  if (curInfo != null){
+                    curInfo.close();
+                  }
+                  curInfo = new google.maps.InfoWindow({
+                    content: loc_info[this.index]
+                  });
+                  curInfo.open(map, this);
+                });
+              };
+            }
+          }
+          var curInfo = null;
+
+
+
+
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1WZ3UiEOsn0EX__E2rr0h8F7eulCuq3g&callback=initMap">
+        </script>
